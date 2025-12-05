@@ -24,3 +24,7 @@ spec:
     - ./resources/product-database.yaml
     - ./resources/payment-database.yaml
     - ./resources/postgres-database.yaml
+
+    # Templates - Added in Task 02
+    - ./templates/nodejs-service/template.yaml
+
