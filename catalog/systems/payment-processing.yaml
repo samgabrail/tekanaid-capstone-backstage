@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: payment-processing
+  title: Payment Processing System
+  description: Secure payment transaction handling with fraud detection and compliance monitoring
+  tags:
+    - payments
+    - security-critical
+    - pci-dss
+  links:
+    - url: https://payments-admin.techcorp.com
+      title: Payment Admin Dashboard
+      icon: dashboard
+spec:
+  owner: group:default/platform-admins
+  domain: payments

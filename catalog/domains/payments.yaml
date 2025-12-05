@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: payments
+  title: Payments Domain
+  description: Financial transaction processing, billing, and compliance systems
+  tags:
+    - business-critical
+    - security-sensitive
+    - pci-compliant
+spec:
+  owner: group:default/platform-admins

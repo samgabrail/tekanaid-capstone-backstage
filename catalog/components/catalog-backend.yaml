@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: catalog-backend
+  title: Catalog Backend Service
+  description: Backstage catalog backend managing all entity metadata
+  tags:
+    - platform
+    - backstage
+    - internal
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/platform-admins
+  system: developer-portal
+  dependsOn:
+    - resource:default/postgres-database

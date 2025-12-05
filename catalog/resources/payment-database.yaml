@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payment-database
+  title: Payment Database
+  description: Encrypted PostgreSQL database for payment transactions (PCI-DSS compliant)
+  tags:
+    - postgresql
+    - database
+    - encrypted
+    - pci-compliant
+spec:
+  type: database
+  owner: group:default/platform-admins
+  system: payment-processing

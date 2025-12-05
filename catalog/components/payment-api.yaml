@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payment-api
+  title: Payment API Service
+  description: Secure payment processing API with Stripe and bank integrations
+  tags:
+    - api
+    - nodejs
+    - payments
+    - pci-compliant
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  links:
+    - url: https://github.com/techcorp/payment-api
+      title: Source Repository
+      icon: github
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/platform-admins
+  system: payment-processing
+  providesApis:
+    - payment-api
+  consumesApis:
+    - stripe-api
+  dependsOn:
+    - resource:default/payment-database

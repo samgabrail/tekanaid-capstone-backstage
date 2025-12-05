@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: ecommerce
+  title: E-Commerce Domain
+  description: Customer-facing e-commerce platform including product catalog, ordering, and fulfillment
+  tags:
+    - business-critical
+    - customer-facing
+spec:
+  owner: group:default/developers

@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: developer-portal
+  title: Developer Portal System
+  description: Internal developer experience platform (this Backstage instance)
+  tags:
+    - platform
+    - developer-experience
+    - internal-tooling
+spec:
+  owner: group:default/platform-admins
+  domain: platform

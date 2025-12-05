@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: product-database
+  title: Product Database
+  description: PostgreSQL database for product catalog and inventory
+  tags:
+    - postgresql
+    - database
+    - aws-rds
+spec:
+  type: database
+  owner: group:default/developers
+  system: customer-portal

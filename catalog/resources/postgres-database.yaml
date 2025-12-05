@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: postgres-database
+  title: Backstage PostgreSQL Database
+  description: PostgreSQL database for Backstage catalog and metadata
+  tags:
+    - postgresql
+    - database
+    - kubernetes
+spec:
+  type: database
+  owner: group:default/platform-admins
+  system: developer-portal

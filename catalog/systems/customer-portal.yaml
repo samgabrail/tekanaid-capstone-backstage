@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: customer-portal
+  title: Customer Portal System
+  description: Customer-facing web application for product browsing and order placement
+  tags:
+    - ecommerce
+    - customer-facing
+    - web-application
+  links:
+    - url: https://portal.techcorp.com
+      title: Production Portal
+      icon: dashboard
+spec:
+  owner: group:default/developers
+  domain: ecommerce
