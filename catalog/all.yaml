@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: techcorp-catalog
+  description: TechCorp complete catalog with domains, systems, components, and resources
+spec:
+  targets:
+    # Domains - students will create these in Task 01
+    - ./domains/ecommerce.yaml
+    - ./domains/payments.yaml
+    - ./domains/platform.yaml
+
+    # Systems - students will create these in Task 01
+    - ./systems/customer-portal.yaml
+    - ./systems/payment-processing.yaml
+    - ./systems/developer-portal.yaml
+
+    # Components (Services) - students will create these in Task 01
+    - ./components/product-api.yaml
+    - ./components/payment-api.yaml
+    - ./components/catalog-backend.yaml
+
+    # Resources (Infrastructure) - students will create these in Task 01
+    - ./resources/product-database.yaml
+    - ./resources/payment-database.yaml
+    - ./resources/postgres-database.yaml
+
+    # Templates - students will create these in Task 02
+    - ./templates/nodejs-service/template.yaml
