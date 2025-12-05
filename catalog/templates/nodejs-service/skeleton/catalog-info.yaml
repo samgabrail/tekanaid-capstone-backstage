@@ -1,0 +1,30 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}
+  title: ${{ values.name | capitalize }}
+  description: ${{ values.description }}
+  annotations:
+    github.com/project-slug: ${{ values.repoOwner }}/${{ values.repoName }}
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - nodejs
+    - typescript
+    - microservice
+    - ${{ values.database }}
+  links:
+    - url: https://github.com/${{ values.repoOwner }}/${{ values.repoName }}
+      title: Source Repository
+      icon: github
+    - url: https://github.com/${{ values.repoOwner }}/${{ values.repoName }}/actions
+      title: CI/CD Pipeline
+      icon: github
+spec:
+  type: service
+  lifecycle: experimental
+  owner: ${{ values.owner }}
+  system: ${{ values.system }}
+  {% if values.database != 'none' %}
+  dependsOn:
+    - resource:default/${{ values.name }}-database
+  {% endif %}

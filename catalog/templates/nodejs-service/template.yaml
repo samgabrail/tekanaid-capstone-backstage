@@ -1,0 +1,168 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: nodejs-microservice
+  title: Node.js Microservice
+  description: Create a production-ready Node.js microservice with TypeScript, testing, and CI/CD
+  tags:
+    - recommended
+    - nodejs
+    - typescript
+    - microservice
+spec:
+  owner: group:default/platform-admins
+  type: service
+
+  parameters:
+    - title: Service Information
+      required:
+        - name
+        - description
+        - owner
+      properties:
+        name:
+          title: Service Name
+          type: string
+          description: Unique name for your service (lowercase-with-hyphens)
+          pattern: '^[a-z][a-z0-9-]*[a-z0-9]$'
+          ui:autofocus: true
+          ui:help: 'Example: payment-api, user-service, notification-worker'
+        description:
+          title: Description
+          type: string
+          description: Brief description of what this service does
+          ui:widget: textarea
+          ui:options:
+            rows: 3
+        owner:
+          title: Owner
+          type: string
+          description: Team that owns this service
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              - kind: Group
+
+    - title: Technical Configuration
+      required:
+        - system
+        - port
+      properties:
+        system:
+          title: System
+          type: string
+          description: Which system does this service belong to?
+          enum:
+            - customer-portal
+            - payment-processing
+            - developer-portal
+          enumNames:
+            - 'Customer Portal System'
+            - 'Payment Processing System'
+            - 'Developer Portal System'
+        port:
+          title: Port
+          type: number
+          description: HTTP port for the service
+          default: 3000
+        database:
+          title: Database Type
+          type: string
+          description: Database technology
+          default: postgresql
+          enum:
+            - postgresql
+            - mysql
+            - mongodb
+            - none
+          enumNames:
+            - 'PostgreSQL'
+            - 'MySQL'
+            - 'MongoDB'
+            - 'None (stateless service)'
+
+    - title: GitHub Configuration
+      required:
+        - repoOwner
+        - repoName
+      properties:
+        repoOwner:
+          title: GitHub Owner
+          type: string
+          description: Your GitHub username or organization name
+          ui:help: 'Example: john-doe or my-company-org'
+        repoName:
+          title: Repository Name
+          type: string
+          description: GitHub repository name (defaults to service name)
+          ui:help: 'Leave empty to use service name'
+        repoVisibility:
+          title: Repository Visibility
+          type: string
+          description: Public or private repository
+          default: private
+          enum:
+            - public
+            - private
+
+  steps:
+    - id: fetch
+      name: Fetch Template Skeleton
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          system: ${{ parameters.system }}
+          port: ${{ parameters.port }}
+          database: ${{ parameters.database }}
+          repoOwner: ${{ parameters.repoOwner }}
+          repoName: ${{ parameters.repoName or parameters.name }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts:
+          - github.com
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=${{ parameters.repoName or parameters.name }}
+        repoVisibility: ${{ parameters.repoVisibility }}
+        defaultBranch: main
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: /catalog-info.yaml
+
+  output:
+    links:
+      - title: View Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+        icon: github
+      - title: View in Catalog
+        url: /catalog/default/component/${{ parameters.name }}
+        icon: catalog
+      - title: View CI/CD Pipeline
+        url: ${{ steps.publish.output.remoteUrl }}/actions
+        icon: github
+    text:
+      - title: Next Steps
+        content: |
+          Your service has been created successfully!
+
+          **What was created:**
+          - GitHub repository with complete service code
+          - CI/CD pipeline configured with GitHub Actions
+          - Service registered in Backstage catalog
+          - TechDocs documentation ready to build
+
+          **Get started developing:**
+          git clone ${{ steps.publish.output.remoteUrl }}
+          cd ${{ parameters.repoName or parameters.name }}
+          npm install
+          npm run dev
