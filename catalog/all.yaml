@@ -27,4 +27,3 @@ spec:
 
     # Templates - Added in Task 02
     - ./templates/nodejs-service/template.yaml
-
